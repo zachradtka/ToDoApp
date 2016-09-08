@@ -1,9 +1,25 @@
 <!DOCTYPE html>
 <html>
+
 <head>
-   <title>ToDo App</title>
+  <title>ToDo App</title>
 </head>
+
 <body>
-   A simple to do App
+  <div>
+    <h1>ToDo</h1>
+  </div>
+  <div>
+    <form>
+      <input type="text" name="todo" id="new_task">
+      <button type="button" onclick="addTask()">Create Task</button>
+    </form>
+  </div>
+  <div>
+    <ul id="task_list">
+    </ul>
+  </div>
+  <script src="javascripts/todo.js" charset="utf-8" async defer></script>
 </body>
+
 </html>
