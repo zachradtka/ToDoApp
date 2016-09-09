@@ -1,22 +1,32 @@
+
+
+//TODO: Create a task element with a remove button
+function createTask(task_value) {
+  // Create a div 
+  var elem = document.createElement("DIV");
+  elem.setAttribute("class", "task");
+  elem.innerHTML = task_value;
+
+  return elem
+}
+
 /**
  * Grab 
  */
 function addTask() {
-   // Get the task element
-   var task = document.getElementById("new_task")
 
-   // Create a new <li> element
-   var node = document.createElement("LI")
+  // Get the task element
+  var task = document.getElementById("new_task");
 
-   // Create a text node
-   var list_item = document.createTextNode(task.value)
+  var task_elem = createTask(task.value)
+  // Append task to the task list
+  document.getElementsByClassName("task_list")[0].appendChild(task_elem);
 
-   // Add the task to <li>
-   node.appendChild(list_item)
+  // Clear the text input value
+  task.value = ""
+}
 
-   // Append task to the task list
-   document.getElementById("task_list").appendChild(node)
 
-   // Clear the text input value
-   task.value = ""
+function removeTask() {
+
 }

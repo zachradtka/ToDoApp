@@ -3,21 +3,21 @@
 
 <head>
   <title>ToDo App</title>
+  <link rel="stylesheet" type="text/css" href="css/styles.css">
 </head>
 
 <body>
   <div>
     <h1>ToDo</h1>
   </div>
-  <div>
+  <div class="task_input">
     <form>
       <input type="text" name="todo" id="new_task">
-      <button type="button" onclick="addTask()">Create Task</button>
+      <div id="add_task" onclick="addTask()">+</div>
     </form>
   </div>
-  <div>
-    <ul id="task_list">
-    </ul>
+  <div class="task_list">
+    <!--  All tasks will go here -->
   </div>
   <script src="javascripts/todo.js" charset="utf-8" async defer></script>
 </body>

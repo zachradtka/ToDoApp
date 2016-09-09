@@ -1,0 +1,23 @@
+#new_task {
+  height: 20px;
+  width: 200px;
+  float: left;
+}
+
+#add_task {
+  height: 26px;
+  width: 26px;
+  margin-left: 5px;
+  color: white;
+  background-color: #33cc33;
+  text-align: center;
+  float: left;
+}
+
+.task_list {
+  clear: left;
+}
+
+.task {
+  
+}
