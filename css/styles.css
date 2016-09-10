@@ -19,10 +19,13 @@
 }
 
 .task {
-  height: 20px;
-  width: 400px;
-  display: inline;
+  clear: left;
+}
+
+.task_text {
   float: left;
+  height: 26px;
+  width: 400px;
 }
 
 .rm_task_btn {
@@ -32,6 +35,5 @@
   color: white;
   background-color: #ff3333;
   text-align: center;
-  display: block;
   float: left;
 }
