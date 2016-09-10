@@ -1,6 +1,6 @@
 #new_task {
   height: 20px;
-  width: 200px;
+  width: 400px;
   float: left;
 }
 
@@ -19,5 +19,19 @@
 }
 
 .task {
-  
+  height: 20px;
+  width: 400px;
+  display: inline;
+  float: left;
+}
+
+.rm_task_btn {
+  height: 26px;
+  width: 26px;
+  margin-left: 5px;
+  color: white;
+  background-color: #ff3333;
+  text-align: center;
+  display: block;
+  float: left;
 }
