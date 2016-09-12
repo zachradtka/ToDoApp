@@ -44,6 +44,7 @@ function addTask() {
 
   // Clear the text input value
   task.value = "";
+  save_local()
 }
 
 /**
@@ -68,4 +69,14 @@ function uuid() {
     uuid += (i == 12 ? 4 : (i == 16 ? (random & 3 | 8) : random)).toString(16);
   }
   return uuid;
+}
+
+function save_local() {
+  var tasks = document.getElementsByClassName("task");
+
+  for (var i = 0; i < tasks.length; i++) {
+    tasks[i].childNodes
+
+  }
+
 }
