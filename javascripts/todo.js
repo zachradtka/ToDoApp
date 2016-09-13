@@ -1,62 +1,118 @@
-/**
- * Create a task element.
- * 
- * @param  {string} task_value - The text for the task
- * @return {object} task_element - The task with a remove button
- */
-function createTask(task_value) {
-  // Get a new UUID for the task
-  var task_id = uuid();
 
-  // Construct the outer <div> for the task
-  var task_elem = document.createElement("DIV");
-  task_elem.setAttribute("class", "task");
-  task_elem.setAttribute("id", task_id)
-
-  // Create a div for the task text
-  var task_text = document.createElement("DIV");
-  task_text.setAttribute("class", "task_text");
-  var text = document.createTextNode(task_value);
-  task_text.appendChild(text);
-  task_elem.appendChild(task_text);
-
-  // Create a button to remove the task 
-  var rm_btn = document.createElement("DIV");
-  rm_btn.setAttribute("class", "rm_task_btn")
-  rm_btn.addEventListener("click", function() { removeTask(task_id) });
-  var btn_txt = document.createTextNode("-");
-  rm_btn.appendChild(btn_txt);
-
-  // Add the remove button to the task
-  task_elem.appendChild(rm_btn);
-
-  return task_elem;
-}
+var TASKS = {};
 
 /**
  * Add a task to the list of tasks
  */
 function addTask() {
-  var task = document.getElementById("new_task");
+  var newTask = document.getElementById("new_task");
 
-  var task_elem = createTask(task.value);
-  document.getElementsByClassName("task_list")[0].appendChild(task_elem);
+  var task = new Task(newTask.value);
+  TASKS[task.uuid] = task;
+
+  var taskElem = task.createHTML();
+
+  document.getElementsByClassName("task_list")[0].appendChild(taskElem);
 
   // Clear the text input value
-  task.value = "";
-  save_local()
+  newTask.value = "";
+  saveLocal()
+}
+
+
+function saveLocal() {
+  console.log(TASKS)
+  localStorage.setItem("taskList", JSON.stringify(TASKS));
+}
+
+function loadTasks() {
+  var taskList = localStorage.getItem("taskList");
+  if (taskList) {
+    console.log(taskList);
+
+    tasks = JSON.parse(taskList)
+
+    for(var prop in tasks) {
+      if(tasks.hasOwnProperty(prop)) {
+
+        var task = new Task(tasks[prop].value, tasks[prop].uuid);
+        TASKS[task.uuid] = task;
+
+
+        var taskElem = task.createHTML();
+        document.getElementsByClassName("task_list")[0].appendChild(taskElem);
+
+      }
+    }
+  }
+  console.log(TASKS)
+
+}
+
+function Task(value, id) {
+  this.value = value;
+
+  if (id === undefined) {
+    this.uuid = uuid()
+  } else {
+    this.uuid = id
+  }
+}
+
+/**
+ * Create HTML to display the task
+ * @return {object} taskElement - The task with a remove button
+ */
+Task.prototype.createHTML = function() {
+
+  // Construct the outer <div> for the task
+  var taskElem = document.createElement("DIV");
+  taskElem.setAttribute("class", "task");
+  taskElem.setAttribute("id", this.uuid)
+
+  // Create a div for the task text
+  var taskText = document.createElement("DIV");
+  taskText.setAttribute("class", "task_text");
+  var text = document.createTextNode(this.value);
+  taskText.appendChild(text);
+  taskElem.appendChild(taskText);
+
+  // Create a button to remove the task 
+  var rmBtn = document.createElement("DIV");
+  rmBtn.setAttribute("class", "rm_task_btn")
+
+  id = this.uuid
+  console.log("Remove button " + id)
+  rmBtn.addEventListener("click", function() { removeTask(id) });
+  var btnTxt = document.createTextNode("-");
+  rmBtn.appendChild(btnTxt);
+
+  // Add the remove button to the task
+  taskElem.appendChild(rmBtn);
+
+  return taskElem;
 }
 
 /**
  * Remove a task from the list of tasks
- * @param  {string} task_id - The UUID of the task
+ * @param  {string} id - The UUID of the task
  */
 function removeTask(task_id) {
+
+  console.log("Removing task with id: " + task_id)
+
   var child = document.getElementById(task_id);
+
+  console.log(child)
+
   child.parentNode.removeChild(child);
+  delete TASKS[task_id];
+  console.log(TASKS)
 }
 
-
+/**
+ * @return {[type]}
+ */
 function uuid() {
   var uuid = "",
     i, random;
@@ -69,14 +125,4 @@ function uuid() {
     uuid += (i == 12 ? 4 : (i == 16 ? (random & 3 | 8) : random)).toString(16);
   }
   return uuid;
-}
-
-function save_local() {
-  var tasks = document.getElementsByClassName("task");
-
-  for (var i = 0; i < tasks.length; i++) {
-    tasks[i].childNodes
-
-  }
-
 }
