@@ -1,4 +1,3 @@
-
 var TASKS = {};
 
 /**
@@ -21,32 +20,25 @@ function addTask() {
 
 
 function saveLocal() {
-  console.log(TASKS)
   localStorage.setItem("taskList", JSON.stringify(TASKS));
 }
 
 function loadTasks() {
   var taskList = localStorage.getItem("taskList");
   if (taskList) {
-    console.log(taskList);
 
     tasks = JSON.parse(taskList)
 
-    for(var prop in tasks) {
-      if(tasks.hasOwnProperty(prop)) {
-
+    for (var prop in tasks) {
+      if (tasks.hasOwnProperty(prop)) {
         var task = new Task(tasks[prop].value, tasks[prop].uuid);
         TASKS[task.uuid] = task;
 
-
         var taskElem = task.createHTML();
         document.getElementsByClassName("task_list")[0].appendChild(taskElem);
-
       }
     }
   }
-  console.log(TASKS)
-
 }
 
 function Task(value, id) {
@@ -80,10 +72,7 @@ Task.prototype.createHTML = function() {
   // Create a button to remove the task 
   var rmBtn = document.createElement("DIV");
   rmBtn.setAttribute("class", "rm_task_btn")
-
-  id = this.uuid
-  console.log("Remove button " + id)
-  rmBtn.addEventListener("click", function() { removeTask(id) });
+  rmBtn.addEventListener("click", removeTask.bind(this, this.uuid));
   var btnTxt = document.createTextNode("-");
   rmBtn.appendChild(btnTxt);
 
@@ -98,16 +87,11 @@ Task.prototype.createHTML = function() {
  * @param  {string} id - The UUID of the task
  */
 function removeTask(task_id) {
-
-  console.log("Removing task with id: " + task_id)
-
   var child = document.getElementById(task_id);
-
-  console.log(child)
-
   child.parentNode.removeChild(child);
+
   delete TASKS[task_id];
-  console.log(TASKS)
+  saveLocal()
 }
 
 /**
