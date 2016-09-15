@@ -31,7 +31,8 @@ function loadTasks() {
 
     for (var prop in tasks) {
       if (tasks.hasOwnProperty(prop)) {
-        var task = new Task(tasks[prop].value, tasks[prop].uuid);
+        var task = new Task(tasks[prop].value, tasks[prop].uuid,
+          tasks[prop].createDate);
         TASKS[task.uuid] = task;
 
         var taskElem = task.createHTML();
@@ -41,13 +42,20 @@ function loadTasks() {
   }
 }
 
-function Task(value, id) {
+function Task(value, id, createDate) {
   this.value = value;
 
   if (id === undefined) {
     this.uuid = uuid()
   } else {
     this.uuid = id
+  }
+
+  if (createDate === undefined) {
+    var date = new Date();
+    this.createDate = date.toUTCString();
+  } else {
+    this.createDate = createDate;
   }
 }
 
@@ -61,6 +69,9 @@ Task.prototype.createHTML = function() {
   var taskElem = document.createElement("DIV");
   taskElem.setAttribute("class", "task");
   taskElem.setAttribute("id", this.uuid)
+
+  // Add metadata for the task
+  taskElem.dataset.createDate = this.createDate;
 
   // Create a div for the task text
   var taskText = document.createElement("DIV");
