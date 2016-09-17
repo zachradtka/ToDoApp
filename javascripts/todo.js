@@ -42,7 +42,7 @@ function loadTasks() {
   }
 }
 
-function Task(value, id, createDate) {
+function Task(value, id, createDate, completed, completedDate) {
   this.value = value;
 
   if (id === undefined) {
@@ -56,6 +56,18 @@ function Task(value, id, createDate) {
     this.createDate = date.toUTCString();
   } else {
     this.createDate = createDate;
+  }
+
+  if (completed === undefined) {
+    this.completed = true;
+  } else {
+    this.completed = completed;
+  }
+
+  if (completedDate === undefined) {
+    this.completedDate = undefined;
+  } else {
+    this.completedDate = completedDate;
   }
 }
 
