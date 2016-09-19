@@ -22,10 +22,25 @@
   clear: left;
 }
 
+
+.complete_task_btn {
+  height: 26px;
+  width: 26px;
+  margin-left: 5px;
+  color: white;
+  background-color: #33cc33;
+  text-align: center;
+  float: left;
+}
+
 .task_text {
   float: left;
   height: 26px;
   width: 400px;
+}
+
+.task_complete {
+  text-decoration: line-through;
 }
 
 .rm_task_btn {
