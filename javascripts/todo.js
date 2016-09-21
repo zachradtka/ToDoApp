@@ -11,7 +11,7 @@ function addTask() {
 
   var taskElem = task.createHTML();
 
-  document.getElementsByClassName("task_list")[0].appendChild(taskElem);
+  document.getElementsByClassName("uncompleted_tasks")[0].appendChild(taskElem);
 
   // Clear the text input value
   newTask.value = "";
@@ -36,7 +36,11 @@ function loadTasks() {
         TASKS[task.uuid] = task;
 
         var taskElem = task.createHTML();
-        document.getElementsByClassName("task_list")[0].appendChild(taskElem);
+        if (task.completed) {
+          document.getElementsByClassName("completed_tasks")[0].appendChild(taskElem);
+        } else {
+          document.getElementsByClassName("uncompleted_tasks")[0].appendChild(taskElem);
+        }
       }
     }
   }
@@ -104,7 +108,7 @@ Task.prototype.createHTML = function() {
   // Create a button to remove the task
   var rmBtn = document.createElement("DIV");
   rmBtn.setAttribute("class", "rm_task_btn")
-  rmBtn.addEventListener("click", removeTask.bind(this, this.uuid));
+  rmBtn.addEventListener("click", this.removeTask.bind(this, this.uuid));
   var btnTxt = document.createTextNode("-");
   rmBtn.appendChild(btnTxt);
   taskElem.appendChild(rmBtn);
@@ -121,7 +125,7 @@ Task.prototype.createHTML = function() {
  * Remove a task from the list of tasks
  * @param  {string} id - The UUID of the task
  */
-function removeTask(task_id) {
+Task.prototype.removeTask = function(task_id) {
   var child = document.getElementById(task_id);
   child.parentNode.removeChild(child);
 
@@ -131,13 +135,17 @@ function removeTask(task_id) {
 
 Task.prototype.completeTask = function(task_id) {
 
+  var taskElem = document.getElementById(task_id);
+  taskElem.parentNode.removeChild(taskElem);
+
   if (this.completed) {
     this.completed = false;
+    document.getElementsByClassName("uncompleted_tasks")[0].appendChild(taskElem);
   } else {
     this.completed = true;
+    document.getElementsByClassName("completed_tasks")[0].appendChild(taskElem);
   }
 
-  var taskElem = document.getElementById(task_id);
   taskElem.dataset.completed = this.completed;
 
   var children = taskElem.childNodes;
@@ -151,6 +159,9 @@ Task.prototype.completeTask = function(task_id) {
       }
     }
   }
+
+
+
 
   saveLocal();
 }
