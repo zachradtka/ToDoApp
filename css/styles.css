@@ -1,17 +1,17 @@
 #new_task {
+  float: left;
   height: 20px;
   width: 400px;
-  float: left;
 }
 
 #add_task {
-  height: 26px;
-  width: 26px;
-  margin-left: 5px;
-  color: white;
   background-color: #33cc33;
-  text-align: center;
+  color: white;
   float: left;
+  height: 26px;
+  margin-left: 5px;
+  text-align: center;
+  width: 26px;
 }
 
 .task_list {
@@ -22,15 +22,14 @@
   clear: left;
 }
 
-
 .complete_task_btn {
-  height: 26px;
-  width: 26px;
-  margin-left: 5px;
-  color: white;
   background-color: #33cc33;
-  text-align: center;
+  color: white;
   float: left;
+  height: 26px;
+  margin-left: 5px;
+  text-align: center;
+  width: 26px;
 }
 
 .task_text {
@@ -44,11 +43,11 @@
 }
 
 .rm_task_btn {
-  height: 26px;
-  width: 26px;
-  margin-left: 5px;
-  color: white;
   background-color: #ff3333;
-  text-align: center;
+  color: white;
   float: left;
+  height: 26px;
+  margin-left: 5px;
+  text-align: center;
+  width: 26px;
 }

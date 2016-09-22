@@ -160,9 +160,6 @@ Task.prototype.completeTask = function(task_id) {
     }
   }
 
-
-
-
   saveLocal();
 }
 
